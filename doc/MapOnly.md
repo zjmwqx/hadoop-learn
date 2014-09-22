@@ -17,6 +17,7 @@
   ```
 
 - 基本工具类继承Tool & configured：
+
   ![ToolRunner](http://notes-wordpress.stor.sinaapp.com/uploads/2013/05/inherit.png)
 ```
 public class MapOnly extends Configured implements Tool {	
