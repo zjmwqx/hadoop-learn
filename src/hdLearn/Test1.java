@@ -38,9 +38,9 @@ public class Test1 extends Configured implements Tool {
 		public void map ( LongWritable key, Text value, Context context ) throws IOException, InterruptedException 
 		{
 			String line = value.toString();				//读取源数据
-			
+			hello
 			try
-			{
+			{	
 				//数据处理
 				String [] lineSplit = line.split(" ");
 				String month = lineSplit[0];
