@@ -1,11 +1,11 @@
-#Hadoop Configurabtion
+###Hadoop Configurabtion
 ```
   save:
   conf.set("name", args[2]);
   load:
   context.getConfiguration().get("name")
 ```
-#Hadoop Setup：
+###Hadoop Setup：
 - 向hadoop提交job后，hadoop会在MapTask的runNewMapper（）或者runOldMapper（）函数中使用**反馈机制实例化具体的Mapper子类**，然后调用这个对象的run（）函数，其中setup()函数就在这个函数的开始被调用，因为hadoop会向setup（）函数中传递Configuration等一些变量（封装在context中），所以我们可以通过重载setup（）函数来获得系统变量实现自己的功能。
 
   ```
@@ -34,3 +34,7 @@ InputFormat会为对应的作业产生一个或多个InputSplit，Hadoop **Map-R
 
 - The framework first calls setup(org.apache.hadoop.mapreduce.Mapper.Context), followed by map(Object, Object, Context) for each key/value pair in the InputSplit. Finally cleanup(Context) is called.
 Hadoop Map-Reduce框架首先调用setup(org.apache.hadoop.mapreduce.Mapper.Context)建立工作环境，然后为每个InputSplit中的键值对调用map(Object, Object, Context)函数处理输入数据，**map任务完成后再调用cleanup(Context)做些清理工作**。 
+
+###plus
+-·org.apache.hadoop.mapreduce.lib.map中实现了Mapper的三个子类，分别是**InverseMapper**（将输入<key, value> map为输出<value, key>），**MultithreadedMapper**（多线程执行map方法）和**TokenCounterMapper**（对输入的value分解为token并计数）。其中最复杂的是MultithreadedMapper，我们就以它为例，来分析Mapper的实现。
+MultithreadedMapper会启动多个线程执行另一个Mapper的map方法，它会启动mapred.map.multithreadedrunner.threads（配置项）个线程执行Mapper：mapred.map.multithreadedrunner.class（配置项）。MultithreadedMapper重写了基类Mapper的run方法，启动N个线程（对应的类为MapRunner）执行mapred.map.multithreadedrunner.class（我们称为目标Mapper）的run方法（就是说，目标Mapper的setup和cleanup会被执行多次）。**目标Mapper共享同一份InputSplit**，这就意味着，对InputSplit的数据读必须线程安全。为此，MultithreadedMapper引入了内部类SubMapRecordReader，SubMapRecordWriter，SubMapStatusReporter，分别继承自RecordReader，RecordWriter和StatusReporter，它们通过互斥访问MultithreadedMapper的Mapper.Context，实现了对同一份InputSplit的线程安全访问，为Mapper提供所需的Context。这些类的实现方法都很简单。
