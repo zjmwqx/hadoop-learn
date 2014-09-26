@@ -23,7 +23,7 @@ job.setInputFormatClass(KeyValueTextInputFormat.class);
 - 2.使用:
 public void map(Text key, Text value, Context context) throws IOException, InterruptedException
 
-##还有其他很多种TextInputFormat:
+##其他TextInputFormat:
 
 - 其中NLineInputFormat也比较常用，每个逻辑分割为多行，需要调用静态方法设置
 
