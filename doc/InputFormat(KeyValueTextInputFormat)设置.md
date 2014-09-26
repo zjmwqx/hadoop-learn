@@ -3,7 +3,7 @@
 - 把输入的一行变成key，value形式，分隔符可以设置：
 - conf.set("mapreduce.input.keyvaluelinerecordreader.key.value.separator", " ");
 
-####1.设置：
+- 1.设置：
 
 ```
 Configuration conf = getConf();
@@ -20,7 +20,7 @@ FileOutputFormat.setOutputPath( job, new Path(args[1]) );		//输出路径
 job.setInputFormatClass(KeyValueTextInputFormat.class);
 ```
 
-####2.使用:
+- 2.使用:
 public void map(Text key, Text value, Context context) throws IOException, InterruptedException
 
 ##还有其他很多种TextInputFormat:
