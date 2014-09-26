@@ -25,8 +25,8 @@ public void map(Text key, Text value, Context context) throws IOException, Inter
 
 ##还有其他很多种TextInputFormat:
 
-- NLineInputFormat也比较常用，每个逻辑分割为多行，需要调用静态方法设置
-- 
+- 其中NLineInputFormat也比较常用，每个逻辑分割为多行，需要调用静态方法设置
+
 ```
 NLineInputFormat.setNumLinesPerSplit(job,50);
 ```
