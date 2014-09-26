@@ -1,4 +1,5 @@
 ##KeyValueTextInoutFormat
+
 - 把输入的一行变成key，value形式，分隔符可以设置：
 - conf.set("mapreduce.input.keyvaluelinerecordreader.key.value.separator", " ");
 
@@ -23,6 +24,7 @@ job.setInputFormatClass(KeyValueTextInputFormat.class);
 public void map(Text key, Text value, Context context) throws IOException, InterruptedException
 
 ##还有其他很多种TextInputFormat:
+
 - NLineInputFormat也比较常用，每个逻辑分割为多行，需要调用静态方法设置
 - 
 ```
