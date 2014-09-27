@@ -5,7 +5,7 @@
 - 1.序列化后的编码后记录着对象的类名称。方便反序列化使用。和pickle类似。也就是说这和java的序列化有着很大的不同。
 - 2.hdfs文件的读写也存在类似的情况，WriteLong, WriteChars等都会加入额外信息。只有WriteBytes是不添加其他辅助信息的写文件方式。
 - 3.setMap....必须写，以保证map和reduce的输出不一样。
-
+- 4.另外，多输出format的介绍，参看：http://my.oschina.net/leejun2005/blog/94706
 Write to sequence:
 ```
 		job.setOutputFormatClass( SequenceFileOutputFormat.class );
