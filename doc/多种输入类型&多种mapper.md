@@ -36,7 +36,7 @@ job.setJarByClass(MultiInputDemo.class);								//指定Class
 
 //注释掉单输入
 //FileInputFormat.setInputPaths( job, new Path(args[0]) );		
-//多路径，同类型
+//多路径，多类型
 MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, MapperA.class);
 MultipleInputs.addInputPath(job, new Path(args[1]), KeyValueTextInputFormat.class, MapperB.class);
 
