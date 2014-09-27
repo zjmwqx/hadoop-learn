@@ -15,22 +15,26 @@ job.setPartitionerClass(Partition.class);
 2.一般的partitioner写法：
 
 ```
-public int getPartition(Text key, Text value, int numReduceTask) {
-			// TODO Auto-generated method stub
-			String[] values = value.toString().split("\t");
-			int age = Integer.valueOf(values[1]);
-			if (age <= 20) {
-				return 0;
-			}
-			// else if the age is between 20 and 50, assign partition 1
-			if (age > 20 && age <= 50) {
+public static class Partition extends Partitioner<Text, Text> {
 
-				return 1 % numReduceTask;
+		@Override
+			public int getPartition(Text key, Text value, int numReduceTask) {
+				// TODO Auto-generated method stub
+				String[] values = value.toString().split("\t");
+				int age = Integer.valueOf(values[1]);
+				if (age <= 20) {
+					return 0;
+				}
+				// else if the age is between 20 and 50, assign partition 1
+				if (age > 20 && age <= 50) {
+	
+					return 1 % numReduceTask;
+				}
+				// otherwise assign partition 2
+				else
+					return 2 % numReduceTask;
 			}
-			// otherwise assign partition 2
-			else
-				return 2 % numReduceTask;
-		}
+	}
 ```
 
 ###TotalOederPartitioner
